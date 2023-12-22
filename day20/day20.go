@@ -6,8 +6,9 @@ import (
 	"os"
 	"slices"
 	"strings"
-
 	"golang.org/x/exp/maps"
+
+	"github.com/SilverMight/adventofcode/mathutils"
 )
 
 
@@ -39,29 +40,6 @@ const (
     CONJUNCTION ModuleType = '&'
     FLIP_FLOP ModuleType = '%'
 )
-
-
-func findLCM(numbers []int) int {
-	lcm := numbers[0]
-
-	// Iterate through the array and find the LCM of each element with the current LCM
-	for i := 1; i < len(numbers); i++ {
-		lcm = calculateLCM(lcm, numbers[i])
-	}
-
-	return lcm
-}
-
-func calculateLCM(a, b int) int {
-	return a * b / calculateGCD(a, b)
-}
-
-func calculateGCD(a, b int) int {
-	for b != 0 {
-		a, b = b, a%b
-	}
-	return a
-}
 
 func parse(puzzle []string) map[string]Module {
     modules := make(map[string]Module)
@@ -217,7 +195,7 @@ func part2(modules map[string]Module) int {
         
     }
 
-    return findLCM(maps.Values(rxInputCycles))
+    return mathutils.FindLCM(maps.Values(rxInputCycles))
 }
 
 

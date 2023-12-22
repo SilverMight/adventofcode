@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+
+	"github.com/SilverMight/adventofcode/mathutils"
 )
 
 const (
@@ -48,30 +50,6 @@ func traverseNodeMap(nodeMap map[string][]string, instructions string, startingN
 	return nodeCycles
 }
 
-func findLCM(numbers []int) int {
-	lcm := numbers[0]
-
-	// Iterate through the array and find the LCM of each element with the current LCM
-	for i := 1; i < len(numbers); i++ {
-		lcm = calculateLCM(lcm, numbers[i])
-	}
-
-	return lcm
-}
-
-// calculateLCM calculates the LCM of two integers using the GCD (Greatest Common Divisor) formula
-func calculateLCM(a, b int) int {
-	return a * b / calculateGCD(a, b)
-}
-
-// calculateGCD calculates the Greatest Common Divisor (GCD) of two integers using Euclidean algorithm
-func calculateGCD(a, b int) int {
-	for b != 0 {
-		a, b = b, a%b
-	}
-	return a
-}
-
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -100,6 +78,6 @@ func main() {
 	}
 
 	cycles := traverseNodeMap(nodeMap, instructions, startingNodes)
-	fmt.Println(findLCM(cycles))
+	fmt.Println(mathutils.FindLCM(cycles))
 
 }
